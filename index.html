@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Nagaland Ride mobile demo for passengers and drivers.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Nagaland Ride — Demo</title>
+  <style>
+    :root{--bg:#0b0d10;--panel:#15191e;--panel2:#1d232a;--gold:#e4b64f;--gold2:#f5d98b;--text:#f6f3ea;--muted:#aab2bc;--line:#303741;--green:#65d6a1;--red:#ff8a8a}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at top,#222017 0,#0b0d10 48%);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .wrap{max-width:720px;margin:auto;padding:18px 14px 40px}.brand{display:flex;align-items:center;gap:12px;margin:8px 2px 20px}.mark{width:48px;height:48px;border:1px solid var(--gold);border-radius:14px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:22px;background:#17150f}.brand h1{font-size:21px;letter-spacing:.5px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px;letter-spacing:1.7px;text-transform:uppercase}
+    .tag{margin-left:auto;font-size:11px;color:var(--gold2);border:1px solid #6c5628;border-radius:999px;padding:5px 8px;white-space:nowrap}
+    .hero{padding:20px;border:1px solid #4b4027;background:linear-gradient(135deg,#201c12,#15191e 65%);border-radius:22px;margin-bottom:14px}.hero small{color:var(--gold2);letter-spacing:1.5px;text-transform:uppercase}.hero h2{font-size:28px;line-height:1.1;margin:9px 0}.hero p{color:var(--muted);margin:8px 0 0;font-size:14px}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#101317;border:1px solid var(--line);border-radius:15px;padding:5px;margin:14px 0}.tab{border:0;background:transparent;color:var(--muted);padding:12px;border-radius:11px;font-weight:700;font-size:15px}.tab.active{background:var(--gold);color:#1b170c}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:12px 0}.card h3{margin:0 0 13px;font-size:18px}.field{display:block;margin:12px 0}.field span{display:block;color:var(--muted);font-size:12px;margin:0 0 6px}.field input,.field select{width:100%;background:#0f1216;border:1px solid #39414b;color:var(--text);border-radius:11px;padding:13px;font:inherit;outline:none}.field input:focus,.field select:focus{border-color:var(--gold)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:0;border-radius:12px;background:var(--gold);color:#17130a;padding:14px 16px;font:700 15px system-ui;cursor:pointer;margin-top:8px}.btn.secondary{background:#252c34;color:var(--text);border:1px solid #3a424d}.btn:disabled{opacity:.5;cursor:not-allowed}
+    .estimate{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0f1216;border:1px solid #353b43;padding:14px;border-radius:13px;margin:14px 0}.estimate strong{font-size:24px;color:var(--gold2)}.estimate small{display:block;color:var(--muted);font-size:12px}.mapfake{height:160px;border-radius:14px;overflow:hidden;position:relative;background:linear-gradient(135deg,#202c2c,#17212a);border:1px solid #38434a;margin:10px 0 14px}.mapfake:before,.mapfake:after{content:"";position:absolute;width:130%;height:2px;background:#667c70;transform:rotate(-20deg);top:50%;left:-10%;box-shadow:0 25px #435d55,0 -28px #435d55}.mapfake:after{transform:rotate(48deg);background:#887b56;top:10%;left:22%;width:2px;height:150%;box-shadow:70px 0 #887b56,140px 0 #887b56}.pin{position:absolute;z-index:2;background:var(--gold);color:#17130a;border-radius:100px;padding:6px 9px;font-size:11px;font-weight:800}.pin.one{left:15%;top:25%}.pin.two{right:13%;bottom:20%;background:#f6f3ea}.maplabel{position:absolute;z-index:3;bottom:8px;left:10px;background:#0b0d10c9;border-radius:8px;padding:5px 8px;font-size:11px;color:#e7e4da}
+    .notice{border-left:3px solid var(--gold);background:#211d13;padding:10px 12px;border-radius:7px;color:#e7d8ae;font-size:12px;margin-top:12px}.ride{padding:13px;background:#101317;border:1px solid #343b44;border-radius:13px;margin:9px 0}.ridehead{display:flex;justify-content:space-between;gap:8px;align-items:center}.status{font-size:11px;border-radius:99px;padding:4px 8px;background:#23382f;color:var(--green)}.ride p{font-size:13px;color:var(--muted);margin:8px 0}.ride b{color:var(--text)}.empty{color:var(--muted);font-size:14px;padding:12px 0}.footer{text-align:center;color:#7f8995;font-size:11px;margin:22px 0 0}.hidden{display:none!important}
+    @media(min-width:600px){.wrap{padding:26px 22px 48px}.hero{padding:26px}.hero h2{font-size:34px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <div class="mark">NR</div>
+    <div><h1>NAGALAND RIDE</h1><p>Local journeys. Local people.</p></div>
+    <div class="tag">DEMO BUILD</div>
+  </header>
+  <section class="hero">
+    <small>Dimapur • Kohima</small>
+    <h2>Your ride,<br>your Nagaland.</h2>
+    <p>A clickable early demo for passengers and drivers. No real rides or payments are processed.</p>
+  </section>
+  <nav class="tabs" aria-label="Choose demo role">
+    <button class="tab active" id="passengerTab" type="button">Passenger</button>
+    <button class="tab" id="driverTab" type="button">Driver</button>
+  </nav>
+
+  <main id="passengerView">
+    <section class="card">
+      <h3>Where are you going?</h3>
+      <div class="mapfake" aria-label="Illustrative map, not live navigation">
+        <span class="pin one">PICKUP</span><span class="pin two">DROP</span><span class="maplabel">Illustrative route preview · not GPS</span>
+      </div>
+      <label class="field"><span>City</span><select id="city"><option>Dimapur</option><option>Kohima</option></select></label>
+      <label class="field"><span>Pickup point</span><select id="pickup">
+        <option value="Railway Station">Railway Station</option><option value="Main Town">Main Town</option><option value="Market">Market</option><option value="Hospital">Hospital</option><option value="Bus Stand">Bus Stand</option><option value="Airport">Airport</option><option value="Secretariat">Secretariat</option>
+      </select></label>
+      <label class="field"><span>Destination</span><select id="drop">
+        <option value="Main Town">Main Town</option><option value="Railway Station">Railway Station</option><option value="Market">Market</option><option value="Hospital">Hospital</option><option value="Bus Stand">Bus Stand</option><option value="Airport">Airport</option><option value="Secretariat">Secretariat</option>
+      </select></label>
+      <div class="grid2">
+        <label class="field"><span>Ride type</span><select id="rideType"><option value="Bike">Bike</option><option value="Taxi">Taxi</option><option value="Shared taxi">Shared taxi</option></select></label>
+        <label class="field"><span>Passengers</span><select id="seats"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+      </div>
+      <div class="estimate"><div><small>Indicative fare estimate</small><span id="fareNote">Demo estimate · not a quote</span></div><strong id="fare">₹80</strong></div>
+      <button class="btn" id="requestRide">Request demo ride</button>
+      <div class="notice">Demo only: route distance and fares are illustrative. No driver is contacted. Confirm local fares and regulations before any public launch.</div>
+    </section>
+    <section class="card">
+      <h3>Your demo rides</h3><div id="passengerRides" class="empty">No demo rides yet. Try requesting one above.</div>
+      <button class="btn secondary" id="clearPassenger">Clear demo rides</button>
+    </section>
+  </main>
+
+  <main id="driverView" class="hidden">
+    <section class="card">
+      <h3>Driver demo profile</h3>
+      <label class="field"><span>Driver name</span><input id="driverName" maxlength="50" placeholder="e.g. Neikha" value="Demo Driver"></label>
+      <label class="field"><span>Vehicle</span><select id="driverVehicle"><option>Bike</option><option>Taxi</option><option>Shared taxi</option></select></label>
+      <label class="field"><span>City</span><select id="driverCity"><option>Dimapur</option><option>Kohima</option></select></label>
+      <button class="btn" id="toggleOnline">Go online</button>
+      <p id="driverState" class="empty">You are offline. Turn on demo availability to see sample ride requests.</p>
+    </section>
+    <section class="card">
+      <h3>Sample ride requests</h3>
+      <div id="driverRequests" class="empty">Go online to view demo requests.</div>
+      <div class="notice">Driver actions are saved only in this browser on this device. There is no shared server, identity verification, dispatch, or live GPS in this prototype.</div>
+    </section>
+  </main>
+  <p class="footer">NAGALAND RIDE · EARLY PROTOTYPE · NOT FOR COMMERCIAL DISPATCH</p>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const read = (k, fallback) => { try { return JSON.parse(localStorage.getItem(k)) ?? fallback; } catch { return fallback; } };
+const save = (k,v) => localStorage.setItem(k, JSON.stringify(v));
+let rides = read("nr_rides", []);
+let online = false;
+const rates = {Bike:{base:30,km:12},Taxi:{base:60,km:18},"Shared taxi":{base:25,km:8}};
+const places = ["Railway Station","Main Town","Market","Hospital","Bus Stand","Airport","Secretariat"];
+function estimate(){
+  const city = $("city").value, a=$("pickup").value, b=$("drop").value, type=$("rideType").value;
+  const same = a===b; const distance = same ? 1 : 2 + ((places.indexOf(a)*3 + places.indexOf(b)*5 + (city==="Kohima"?2:0))%9);
+  const f = Math.round((rates[type].base + distance*rates[type].km)/10)*10;
+  $("fare").textContent = "₹"+f; $("fareNote").textContent = `${distance} km illustrative distance · ${type}`;
+  return {city,pickup:a,drop:b,type,distance,fare:f,seats:$("seats").value};
+}
+function renderPassenger(){
+  if(!rides.length){$("passengerRides").innerHTML='<div class="empty">No demo rides yet. Try requesting one above.</div>';return;}
+  $("passengerRides").innerHTML=rides.slice().reverse().map(r=>`<div class="ride"><div class="ridehead"><b>${r.city}: ${r.pickup} → ${r.drop}</b><span class="status">${r.status}</span></div><p>${r.type} · ${r.distance} km estimated · ${r.seats} passenger(s)</p><div class="ridehead"><b>₹${r.fare}</b><button class="btn secondary" style="width:auto;margin:0;padding:8px 11px" data-cancel="${r.id}">Cancel</button></div></div>`).join("");
+  document.querySelectorAll("[data-cancel]").forEach(b=>b.onclick=()=>{rides=rides.filter(r=>r.id!==b.dataset.cancel);save("nr_rides",rides);renderPassenger();renderDriver();});
+}
+function renderDriver(){
+  $("driverState").textContent=online?`You are online as ${$("driverName").value||"Demo Driver"} in ${$("driverCity").value}. Sample requests below.`:"You are offline. Turn on demo availability to see sample ride requests.";
+  $("toggleOnline").textContent=online?"Go offline":"Go online";
+  const list=online?rides.filter(r=>r.city===$("driverCity").value && r.status==="Requested"):[];
+  $("driverRequests").innerHTML=!online?'<div class="empty">Go online to view demo requests.</div>':!list.length?'<div class="empty">No open requests in this city. Create one from Passenger mode.</div>':list.map(r=>`<div class="ride"><div class="ridehead"><b>${r.pickup} → ${r.drop}</b><span class="status">Requested</span></div><p>${r.type} · ${r.distance} km · ${r.seats} passenger(s)</p><div class="ridehead"><b>₹${r.fare} estimate</b><button class="btn" style="width:auto;margin:0;padding:9px 12px" data-accept="${r.id}">Accept demo ride</button></div></div>`).join("");
+  document.querySelectorAll("[data-accept]").forEach(b=>b.onclick=()=>{rides=rides.map(r=>r.id===b.dataset.accept?{...r,status:"Accepted by "+($("driverName").value||"Demo Driver")}:r);save("nr_rides",rides);renderPassenger();renderDriver();});
+}
+function showRole(role){
+  $("passengerView").classList.toggle("hidden",role!=="passenger");$("driverView").classList.toggle("hidden",role!=="driver");
+  $("passengerTab").classList.toggle("active",role==="passenger");$("driverTab").classList.toggle("active",role==="driver");
+}
+$("passengerTab").onclick=()=>showRole("passenger");$("driverTab").onclick=()=>showRole("driver");
+["city","pickup","drop","rideType","seats"].forEach(id=>$(id).addEventListener("change",estimate));
+$("requestRide").onclick=()=>{const trip=estimate();if(trip.pickup===trip.drop){alert("Please choose two different points for this demo ride.");return;}rides.push({...trip,id:Date.now().toString(),status:"Requested",createdAt:new Date().toISOString()});save("nr_rides",rides);renderPassenger();renderDriver();alert("Demo ride request saved on this device. No driver has been contacted.");};
+$("clearPassenger").onclick=()=>{if(confirm("Clear all demo rides saved on this device?")){rides=[];save("nr_rides",rides);renderPassenger();renderDriver();}};
+$("toggleOnline").onclick=()=>{online=!online;renderDriver();};
+["driverName","driverVehicle","driverCity"].forEach(id=>$(id).addEventListener("change",renderDriver));
+estimate();renderPassenger();renderDriver();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>

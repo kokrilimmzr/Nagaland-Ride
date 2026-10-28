@@ -1,0 +1,13 @@
+{
+  "name": "Nagaland Ride Demo",
+  "short_name": "Nagaland Ride",
+  "description": "Passenger and driver demo for Nagaland Ride",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#101010",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
