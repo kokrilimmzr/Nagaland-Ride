@@ -96,9 +96,9 @@
   <main id="passengerView">
     <section class="card">
       <h3>Where are you going?</h3>
-      <div class="mapfake" aria-label="Illustrative map, not live navigation">
-        <span class="pin one">PICKUP</span><span class="pin two">DROP</span><span class="maplabel">Illustrative route preview · not GPS</span>
-      </div>
+      
+<div id="rideMap" aria-label="Interactive ride map"></div><div class="map-actions"><button type="button" id="useMyLocation">Use my location</button><button type="button" id="choosePickup">Select pickup on map</button></div><p id="mapMessage" role="status">Loading map…</p>
+      
       <label class="field"><span>City</span><select id="city"><option>Dimapur</option><option>Kohima</option></select></label>
       <label class="field"><span>Pickup point</span><select id="pickup">
         <option value="Railway Station">Railway Station</option><option value="Main Town">Main Town</option><option value="Market">Market</option><option value="Hospital">Hospital</option><option value="Bus Stand">Bus Stand</option><option value="Airport">Airport</option><option value="Secretariat">Secretariat</option>
