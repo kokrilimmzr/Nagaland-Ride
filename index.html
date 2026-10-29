@@ -144,6 +144,99 @@
 </div>
 <script>
 const $ = id => document.getElementById(id);
+  
+/* Nagaland Ride map initialization */
+let rideMap = null;
+let pickupMarker = null;
+let choosingPickup = false;
+
+function initRideMap() {
+  const mapElement = $("rideMap");
+  if (!mapElement || !window.L || rideMap) return;
+
+  rideMap = L.map("rideMap").setView([25.67, 94.11], 8);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(rideMap);
+
+  rideMap.on("click", event => {
+    if (!choosingPickup) return;
+
+    const point = event.latlng;
+
+    if (pickupMarker) {
+      pickupMarker.setLatLng(point);
+    } else {
+      pickupMarker = L.marker(point).addTo(rideMap);
+    }
+
+    pickupMarker.bindPopup("Selected pickup").openPopup();
+    choosingPickup = false;
+    $("mapMessage").textContent = "Pickup selected on map.";
+  });
+
+  $("mapMessage").textContent =
+    "Map ready. Select a pickup point or use your location.";
+
+  setTimeout(() => rideMap.invalidateSize(), 200);
+}
+
+function locateMe() {
+  if (!navigator.geolocation) {
+    $("mapMessage").textContent =
+      "Location is not supported by this browser.";
+    return;
+  }
+
+  $("mapMessage").textContent = "Requesting location permission…";
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      if (pickupMarker) {
+        pickupMarker.setLatLng([lat, lng]);
+      } else {
+        pickupMarker = L.marker([lat, lng]).addTo(rideMap);
+      }
+
+      pickupMarker.bindPopup("Your location").openPopup();
+      rideMap.setView([lat, lng], 15);
+      $("mapMessage").textContent =
+        "Location marked on this device only.";
+    },
+    error => {
+      $("mapMessage").textContent =
+        error.code === 1
+          ? "Location permission denied. Check browser settings."
+          : "Could not get location. Please try again.";
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+  );
+}
+
+function connectMapControls() {
+  if (!window.L || !$("rideMap")) return;
+
+  initRideMap();
+  $("useMyLocation").addEventListener("click", locateMe);
+
+  $("choosePickup").addEventListener("click", () => {
+    choosingPickup = true;
+    $("mapMessage").textContent =
+      "Tap the map to select your pickup point.";
+  });
+}
+
+if (document.readyState === "complete") {
+  connectMapControls();
+} else {
+  window.addEventListener("load", connectMapControls, { once: true });
+}
+  
 const read = (k, fallback) => { try { return JSON.parse(localStorage.getItem(k)) ?? fallback; } catch { return fallback; } };
 const save = (k,v) => localStorage.setItem(k, JSON.stringify(v));
 let rides = read("nr_rides", []);
